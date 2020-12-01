@@ -17,6 +17,11 @@
             'HyEX5Nidi-m', // Vimeo is not blocked
         ]);
     </script>
+    <script>
+        function acceptVimeo() {
+            UC_UI.acceptService("HyEX5Nidi-m").then(() => console.log('Vimeo is accepted'));
+        }
+    </script>
     <!-- Script for SDP with custom DPS -->
     <script>
         uc.setServiceAlias({ 'S1pcEj_jZX': 'gha1m1WY6' })
@@ -35,12 +40,11 @@
     <!-- End Google Analytics -->
     <script>
         window.addEventListener("uc_consent", function (e) {
-            console.log(e.data);
-            if (e.data.event == "consent_changed Vimeo") {
+            if (e.detail && e.detail.event == "consent_status") {
                 let vimeoInside = document.getElementById("vimeo-wrapper-inside");
                 let vimeoWrapper = document.getElementById("vimeo-wrapper")
-                if (UC_UI.getServices().find(service => service.id === 'HyEX5Nidi-m')?.consent.status === true) {
-                    console.log("Consent for Vimeo was given")
+                if (e.detail['Vimeo'] === true) {
+                    console.log('Vimeo Video has consent');
                     let iframe = document.createElement('iframe');
                     iframe.id = "Vimeo_iframe";
                     vimeoInside.style.display = "none";
@@ -50,9 +54,12 @@
                     vimeoWrapper.appendChild(iframe);
                 }
                 else {
-                    console.log("Consent was revoked")
+                    let vimeoIframe = document.getElementById("Vimeo_iframe");
+                    if (vimeoIframe) {
+                    console.log('Vimeo Video has no consent');
                     vimeoInside.style.display = "block";
-                    vimeoWrapper.removeChild(document.getElementById("Vimeo_iframe"));
+                    vimeoWrapper.removeChild(vimeoIframe);
+                }
                 }
             }
         });
@@ -108,13 +115,14 @@
                 sammeln. Bitte lesen Sie die Details durch und stimmen Sie der Nutzung des Service zu, um diese
                 Inhalte anzuzeigen.
             </div>
-            <button onclick="usercentrics.updateCornerModalIsVisible(true);"
+            <button onclick="UC_UI.showSecondLayer();"
                 style="font-size: 16px;font-weight: bold;display: inline-block;height: 40px;padding-top: 10px;letter-spacing: 1.2;padding-left: 25px;padding-right: 25px;margin-bottom: 15px;background: #cecece;color: rgb(0, 0, 0);border-radius:4px;border-color:#fff">Mehr
                 Informationen</button>
-            <button onclick="usercentrics.updateConsents([{'templateId':'HyEX5Nidi-m', 'status':true}])"
+            <button onclick="acceptVimeo()"
                 style="font-size: 16px;font-weight: bold;display: inline-block;height: 40px;padding-top: 10px;letter-spacing: 1.2;padding-left: 25px;padding-right: 25px;margin-bottom: 15px;background: #0096ff;color: #fff;border-radius:4px;border-color:#fff">Akzeptieren</button>
         </div>
     </div>
 </body>
 
 </html>
+
