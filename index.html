@@ -41,6 +41,7 @@
     <script>
         window.addEventListener("uc_consent", function (e) {
             if (e.detail && e.detail.event == "consent_status") {
+                console.log(e.detail);
                 let vimeoInside = document.getElementById("vimeo-wrapper-inside");
                 let vimeoWrapper = document.getElementById("vimeo-wrapper")
                 if (e.detail['Vimeo'] === true) {
@@ -56,13 +57,28 @@
                 else {
                     let vimeoIframe = document.getElementById("Vimeo_iframe");
                     if (vimeoIframe) {
-                    console.log('Vimeo Video has no consent');
-                    vimeoInside.style.display = "block";
-                    vimeoWrapper.removeChild(vimeoIframe);
-                }
+                        console.log('Vimeo Video has no consent');
+                        vimeoInside.style.display = "block";
+                        vimeoWrapper.removeChild(vimeoIframe);
+                    }
                 }
             }
         });
+    </script>
+    <script>
+        function checkConsent() {
+            const status = UC_UI.getServices();
+            for (let i = 0; i < status.length; i++) {
+                if (status[i].id === "HkocEodjb7" && status[i].consent.status === true) {
+                    console.log("Google Analytics has consent")
+                    return true;
+                }
+                else {
+                    console.log("Google Analytics has no consent")
+                    return false;
+                }
+            }
+        }
     </script>
 </head>
 
@@ -125,4 +141,3 @@
 </body>
 
 </html>
-
