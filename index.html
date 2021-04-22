@@ -38,14 +38,20 @@
     ga('send', 'pageview');
     </script>
     <!-- End Google Analytics -->
+
+    <script>
+        window.addEventListener("ucEvents", function (e) {
+            console.log("Test erfolgreich, Event consent_status ausgeführt");
+        }
+        );
+    </script>
+
     <script>
         window.addEventListener("uc_consent", function (e) {
             if (e.detail && e.detail.event == "consent_status") {
-                console.log(e.detail);
                 let vimeoInside = document.getElementById("vimeo-wrapper-inside");
                 let vimeoWrapper = document.getElementById("vimeo-wrapper")
                 if (e.detail['Vimeo'] === true) {
-                    console.log('Vimeo Video has consent');
                     let iframe = document.createElement('iframe');
                     iframe.id = "Vimeo_iframe";
                     vimeoInside.style.display = "none";
@@ -57,7 +63,6 @@
                 else {
                     let vimeoIframe = document.getElementById("Vimeo_iframe");
                     if (vimeoIframe) {
-                        console.log('Vimeo Video has no consent');
                         vimeoInside.style.display = "block";
                         vimeoWrapper.removeChild(vimeoIframe);
                     }
@@ -65,21 +70,21 @@
             }
         });
     </script>
-    <script>
-        function checkConsent() {
-            const status = UC_UI.getServices();
-            for (let i = 0; i < status.length; i++) {
-                if (status[i].id === "HkocEodjb7" && status[i].consent.status === true) {
-                    console.log("Google Analytics has consent")
-                    return true;
-                }
-                else {
-                    console.log("Google Analytics has no consent")
-                    return false;
-                }
-            }
-        }
-    </script>
+    // <script>
+    //     function checkConsent() {
+    //         const status = UC_UI.getServices();
+    //         for (let i = 0; i < status.length; i++) {
+    //             if (status[i].id === "HkocEodjb7" && status[i].consent.status === true) {
+    //                 console.log("Google Analytics has consent")
+    //                 return true;
+    //             }
+    //             else {
+    //                 console.log("Google Analytics has no consent")
+    //                 return false;
+    //             }
+    //         }
+    //     }
+    // </script>
 </head>
 
 <body>
@@ -138,6 +143,7 @@
                 style="font-size: 16px;font-weight: bold;display: inline-block;height: 40px;padding-top: 10px;letter-spacing: 1.2;padding-left: 25px;padding-right: 25px;margin-bottom: 15px;background: #0096ff;color: #fff;border-radius:4px;border-color:#fff">Akzeptieren</button>
         </div>
     </div>
+    <div class="uc-embed" uc-data="all"></div>
 </body>
 
 </html>
