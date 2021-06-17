@@ -7,8 +7,9 @@
     <title>CMP V2 Test Page</title>
     <link rel="preconnect" href="//privacy-proxy.usercentrics.eu">
     <link rel="preload" href="//privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js" as="script">
-    <script id="usercentrics-cmp" src="https://app.usercentrics.eu/browser-ui/latest/loader.js"
-        data-settings-id="M1yNYhjnw" async></script>
+    <link type="text/css" rel="stylesheet" href="ucw.min.css"/>
+    <script id="usercentrics-cmp" data-settings-id="M1yNYhjnw"
+        src="https://app.usercentrics.eu/browser-ui/latest/loader.js" async></script>
     <!-- Smart Data Protector -->
     <meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu">
     <script type="application/javascript"
@@ -17,6 +18,7 @@
         uc.deactivateBlocking([
             'HkocEodjb7', // Google Analytics is not blocked
             'HyEX5Nidi-m', // Vimeo is not blocked
+            'BJz7qNsdj-7' //Youtube Video is not blocked
         ]);
     </script>
     <script>
@@ -97,7 +99,7 @@
         <li>Google Analytics (excluded from SDP)</li>
     </ul>
     <h2>Youtube Video</h2>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/5QVedTOKVyE" frameborder="0"
+    <iframe width="560" class="uc-widget" height="315" data-uc-id="BJz7qNsdj-7" data-src="https://www.youtube.com/embed/5QVedTOKVyE" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen></iframe>
     <h2>Twitter Embed</h2>
